@@ -3,167 +3,278 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spider Cursor Animation - All in One</title>
+    <title>Rashed Khan | Software Engineer</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        /* CSS অংশ */
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden; /* স্ক্রলবার হাইড করার জন্য */
-            background-color: #000; /* ডার্ক ব্যাকগ্রাউন্ড */
+        :root {
+            --primary: #38bdf8;
+            --secondary: #818cf8;
+            --bg-dark: #030712;
+            --card-bg: rgba(17, 24, 39, 0.7);
         }
 
-        #canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: block;
+        body { 
+            background-color: var(--bg-dark); 
+            color: #f8fafc; 
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
-        /* মাউস ইফেক্ট বোঝাতে একটি ছোট টেক্সট (ঐচ্ছিক) */
-        .info-text {
+        /* Animated Background Blobs */
+        .blob {
             position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: rgba(255, 255, 255, 0.5);
-            font-family: sans-serif;
-            pointer-events: none;
-            z-index: 10;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, rgba(0,0,0,0) 70%);
+            z-index: -1;
+            filter: blur(60px);
+            animation: move 20s infinite alternate;
+        }
+        @keyframes move {
+            from { transform: translate(-10%, -10%); }
+            to { transform: translate(20%, 20%); }
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            padding: 20px 0;
+            background: rgba(3, 7, 18, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .navbar-brand { font-family: 'Fira Code', monospace; font-weight: 700; color: var(--primary) !important; }
+
+        /* Hero Section */
+        .hero {
+            padding-top: 150px;
+            padding-bottom: 100px;
+            background: radial-gradient(circle at top right, rgba(129, 140, 248, 0.05), transparent);
+        }
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            letter-spacing: -2px;
+            line-height: 1.1;
+        }
+        .text-gradient {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Glass Cards with Border Gradient */
+        .glass-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            border-radius: 24px;
+            padding: 40px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 24px;
+            padding: 2px;
+            background: linear-gradient(45deg, transparent, rgba(56, 189, 248, 0.3), transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: 0.5s;
+        }
+        .glass-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            background: rgba(17, 24, 39, 0.9);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+        }
+        .glass-card:hover::before { opacity: 1; }
+
+        /* Project Icons */
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            background: rgba(56, 189, 248, 0.1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        /* Buttons */
+        .btn-modern {
+            padding: 14px 32px;
+            border-radius: 14px;
+            font-weight: 600;
+            transition: 0.4s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .btn-primary-modern {
+            background: var(--primary);
+            color: #000;
+            border: none;
+        }
+        .btn-primary-modern:hover {
+            background: #7dd3fc;
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.4);
+            transform: translateY(-2px);
+        }
+        .btn-outline-modern {
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #fff;
+            background: rgba(255,255,255,0.03);
+        }
+        .btn-outline-modern:hover {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 0;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            background: #020617;
+        }
+
+        .badge-skill {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--secondary);
+            font-family: 'Fira Code', monospace;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3rem; }
         }
     </style>
 </head>
 <body>
 
-    <div class="info-text text-center">মাউস নাড়ান বা স্ক্রিনে টাচ করুন</div>
-    <canvas id="canvas"></canvas>
+    <div class="blob"></div>
 
-    <script>
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">RK.ENGINEER</a>
+            <div class="ms-auto d-flex gap-2">
+                <a href="https://wa.me/8801865348210" class="btn btn-modern btn-primary-modern d-none d-md-flex btn-sm">Let's Talk</a>
+            </div>
+        </div>
+    </nav>
 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+    <section class="hero text-center">
+        <div class="container">
+            <div class="mb-4">
+                <span class="badge-skill">B.Sc in Computer Science & Engineering</span>
+            </div>
+            <h1 class="mb-4">Building Systems That <br><span class="text-gradient">Scale Your Business.</span></h1>
+            <p class="text-secondary mx-auto mb-5" style="max-width: 650px; font-size: 1.1rem;">
+                I am <span class="text-white fw-bold">Rashed Khan</span>, a Software Engineer dedicated to crafting high-performance management systems and digital solutions.
+            </p>
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a href="https://wa.me/8801865348210" target="_blank" class="btn btn-modern btn-primary-modern">
+                    <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                </a>
+                <a href="tel:+8801865348210" class="btn btn-modern btn-outline-modern">
+                    <i class="fa-solid fa-phone"></i> Call Direct
+                </a>
+            </div>
+        </div>
+    </section>
 
-        let particlesArray = [];
+    <section id="projects">
+        <div class="container">
+            <h2 class="text-center mb-5 fw-bold">Expertise & Projects</h2>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="glass-card">
+                        <div class="icon-box"><i class="fa-solid fa-school"></i></div>
+                        <h4 class="fw-bold">School ERP</h4>
+                        <p class="text-secondary small">End-to-end management for academic institutions including grading, fees, and attendance.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="glass-card">
+                        <div class="icon-box"><i class="fa-solid fa-truck-monster"></i></div>
+                        <h4 class="fw-bold">Brick Kiln CMS</h4>
+                        <p class="text-secondary small">A custom solution for brick production units to track labor, material, and logistics.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="glass-card">
+                        <div class="icon-box"><i class="fa-solid fa-hospital-user"></i></div>
+                        <h4 class="fw-bold">Hospital HMS</h4>
+                        <p class="text-secondary small">Patient flow management, bed occupancy tracking, and automated medical billing.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="glass-card">
+                        <div class="icon-box"><i class="fa-solid fa-user-md"></i></div>
+                        <h4 class="fw-bold">Doctor CRM</h4>
+                        <p class="text-secondary small">Digital workspace for doctors to manage appointments and electronic prescriptions.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="glass-card">
+                        <div class="icon-box"><i class="fa-solid fa-capsules"></i></div>
+                        <h4 class="fw-bold">Pharmacy POS</h4>
+                        <p class="text-secondary small">Stock monitoring, expiry alerts, and point-of-sale for medical retailers.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="glass-card">
+                        <div class="icon-box"><i class="fa-solid fa-rocket"></i></div>
+                        <h4 class="fw-bold">Click For Earn</h4>
+                        <p class="text-secondary small">An innovative digital ads-platform for task management and user payouts.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        // মাউস পজিশন স্টোর করা
-        let mouse = {
-            x: null,
-            y: null,
-            radius: (canvas.height / 80) * (canvas.width / 80)
-        };
+    <section id="contact" class="pb-5">
+        <div class="container">
+            <div class="glass-card text-center py-5">
+                <h2 class="fw-bold mb-4">Start a Project Today</h2>
+                <p class="text-secondary mb-4">I am available for freelance projects and full-time opportunities.</p>
+                <div class="mb-4">
+                    <p class="mb-1 text-white">rasedkhan114@gmail.com</p>
+                    <p class="text-info">+880 1865 348210</p>
+                </div>
+                <a href="https://wa.me/8801865348210" class="btn btn-modern btn-primary-modern px-5">Message me on WhatsApp</a>
+            </div>
+        </div>
+    </section>
 
-        window.addEventListener('mousemove', function(event) {
-            mouse.x = event.x;
-            mouse.y = event.y;
-        });
+    <footer class="text-center">
+        <div class="container">
+            <div class="d-flex justify-content-center gap-2 mb-4 flex-wrap">
+                <span class="badge-skill">Laravel</span>
+                <span class="badge-skill">MySQL</span>
+                <span class="badge-skill">REST APIs</span>
+                <span class="badge-skill">Full-Stack JS</span>
+            </div>
+            <p class="text-secondary small">© 2026 Rashed Khan | Engineered for Excellence</p>
+        </div>
+    </footer>
 
-        // কণা (Particle) ক্লাস তৈরি
-        class Particle {
-            constructor(x, y, directionX, directionY, size, color) {
-                this.x = x;
-                this.y = y;
-                this.directionX = directionX;
-                this.directionY = directionY;
-                this.size = size;
-                this.color = color;
-            }
-
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-                ctx.fillStyle = '#ffffff'; // সাদা কণা
-                ctx.fill();
-            }
-
-            update() {
-                // বাউন্ডারি চেক
-                if (this.x > canvas.width || this.x < 0) {
-                    this.directionX = -this.directionX;
-                }
-                if (this.y > canvas.height || this.y < 0) {
-                    this.directionY = -this.directionY;
-                }
-
-                // পজিশন আপডেট
-                this.x += this.directionX;
-                this.y += this.directionY;
-                this.draw();
-            }
-        }
-
-        // কণাগুলো তৈরি করা
-        function init() {
-            particlesArray = [];
-            let numberOfParticles = (canvas.height * canvas.width) / 9000;
-            for (let i = 0; i < numberOfParticles; i++) {
-                let size = (Math.random() * 3) + 1;
-                let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
-                let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
-                let directionX = (Math.random() * 2) - 1;
-                let directionY = (Math.random() * 2) - 1;
-                let color = '#ffffff';
-
-                particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
-            }
-        }
-
-        // মাকড়সার জালের মতো কানেকশন তৈরি
-        function connect() {
-            let opacityValue = 1;
-            for (let a = 0; a < particlesArray.length; a++) {
-                for (let b = a; b < particlesArray.length; b++) {
-                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x))
-                        + ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
-                    
-                    if (distance < (canvas.width / 7) * (canvas.height / 7)) {
-                        opacityValue = 1 - (distance / 20000);
-                        ctx.strokeStyle = 'rgba(255, 255, 255,' + opacityValue + ')';
-                        ctx.lineWidth = 1;
-                        ctx.beginPath();
-                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
-                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-        }
-
-        // অ্যানিমেশন লুপ
-        function animate() {
-            requestAnimationFrame(animate);
-            ctx.clearRect(0, 0, innerWidth, innerHeight);
-
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-            }
-            connect();
-        }
-
-        // উইন্ডো রিসাইজ হ্যান্ডলার
-        window.addEventListener('resize', function() {
-            canvas.width = innerWidth;
-            canvas.height = innerHeight;
-            mouse.radius = ((canvas.height / 80) * (canvas.width / 80));
-            init();
-        });
-
-        // মাউস যখন স্ক্রিন থেকে বাইরে চলে যাবে
-        window.addEventListener('mouseout', function() {
-            mouse.x = undefined;
-            mouse.y = undefined;
-        });
-
-        init();
-        animate();
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-</html>
+    </html>
+
