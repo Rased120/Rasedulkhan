@@ -486,7 +486,7 @@
         </section>
     </main>
 
-    <!-- Floating WhatsApp Button -->
+        <!-- Floating WhatsApp Button -->
     <a href="https://wa.me/8801865348210" target="_blank" class="whatsapp-fab" aria-label="Chat on WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
@@ -497,4 +497,45 @@
                 <a href="https://github.com/your-github" target="_blank" class="social-icon"><i class="fab fa-github"></i></a>
                 <a href="https://linkedin.com/in/your-linkedin" target="_blank" class="social-icon"><i class="fab fa-linkedin"></i></a>
             </div>
-            <p class="text-secondary sma
+            <p class="text-secondary small">&copy; 2026 Rashed Khan. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        let intervalId;
+        const secretCode = "112233";
+        const deathTime = new Date("December 18, 2025 21:45:00").getTime();
+
+        function updateTime() {
+            const now = new Date().getTime();
+            const diff = now - deathTime;
+            if (diff < 0) return;
+
+            document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+            document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+            document.getElementById("minutes").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+            document.getElementById("seconds").innerText = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
+        }
+
+        function secureJustice() {
+            const code = prompt("বিচারের রায় নিশ্চিত করতে কোডটি দিন:");
+            if (code === secretCode) {
+                clearInterval(intervalId);
+                document.getElementById("status-badge").innerText = "বিচার সম্পন্ন";
+                document.getElementById("status-badge").className = "badge bg-success mb-3 p-2 px-3";
+                document.getElementById("sub-text").innerText = "শহীদ শরিফ ওসমান হাদি হত্যার বিচার সম্পন্ন হয়েছে।";
+                document.getElementById("sub-text").className = "text-success fw-bold";
+                document.getElementById("justice-btn").style.display = "none";
+                alert("সফলভাবে নিশ্চিত করা হলো।");
+            } else if (code !== null) { 
+                alert("ভুল কোড!"); 
+            }
+        }
+
+        intervalId = setInterval(updateTime, 1000);
+        updateTime();
+    </script>
+</body>
+</html>
