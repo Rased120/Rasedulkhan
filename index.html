@@ -220,6 +220,105 @@
                 right: 20px;
             }
         }
+        
+  :root {
+            --primary-gradient: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            --red-accent: #ff4b2b;
+            --card-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        body {
+            background: #f0f2f5;
+            background-image: var(--primary-gradient);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .main-card {
+            max-width: 550px;
+            width: 100%;
+            background: var(--card-bg);
+            border-radius: 30px;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        /* Profile Image */
+        .profile-img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 5px solid #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+            object-fit: cover;
+        }
+
+        /* Timer Boxes */
+        .timer-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 25px 0;
+        }
+        .timer-item {
+            background: #fff;
+            padding: 15px 5px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .timer-val {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #1e3c72;
+            display: block;
+        }
+        .timer-label { font-size: 0.75rem; color: #666; font-weight: bold; }
+
+        /* Floating Plus Button */
+        .fab-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: var(--red-accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: 0.3s;
+            border: none;
+        }
+        .fab-button:hover { transform: rotate(90deg) scale(1.1); }
+
+        /* Modal Custom Styling */
+        .modal-content { border-radius: 20px; border: none; }
+        .modal-header { background: var(--primary-gradient); color: white; border-radius: 20px 20px 0 0; }
+        .bio-list { text-align: left; list-style: none; padding: 0; }
+        .bio-list li { margin-bottom: 15px; padding-left: 30px; position: relative; }
+        .bio-list li i { position: absolute; left: 0; top: 5px; color: #1e3c72; }
+
+        #justice-btn {
+            background: #238636;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -309,6 +408,54 @@
                 </div>
             </div>
         </section>
+      <div class="main-card">
+    <button class="fab-button" data-bs-toggle="modal" data-bs-target="#bioModal">
+        <i class="fas fa-plus"></i>
+    </button>
+
+    <img src="hadi_photo.jpg" alt="শরিফ ওসমান হাদি" class="profile-img" onerror="this.src='https://via.placeholder.com/140?text=Hadi';">
+    
+    <div id="status-badge" class="badge bg-danger mb-3 p-2 px-3" style="border-radius: 50px; font-size: 1rem;">বিচারহীনতা</div>
+    
+    <h2 class="fw-bold">শরিফ ওসমান হাদি</h2>
+    <p class="text-muted mb-4">১৮ ডিসেম্বর ২০২৫ | রাত ৯:৪৫</p>
+
+    <div class="timer-container">
+        <div class="timer-item"><span id="days" class="timer-val">0</span><span class="timer-label">দিন</span></div>
+        <div class="timer-item"><span id="hours" class="timer-val">00</span><span class="timer-label">ঘণ্টা</span></div>
+        <div class="timer-item"><span id="minutes" class="timer-val">00</span><span class="timer-label">মিনিট</span></div>
+        <div class="timer-item"><span id="seconds" class="timer-val">00</span><span class="timer-label">সেকেন্ড</span></div>
+    </div>
+
+    <p id="sub-text" class="text-danger fw-bold">বিচারের অপেক্ষায় কাটছে প্রতিটি মুহূর্ত...</p>
+    
+    <button id="justice-btn" onclick="secureJustice()">Confirm Verdict</button>
+</div>
+
+<div class="modal fade" id="bioModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-book-open me-2"></i>শরিফ ওসমান হাদির জীবনী ও ঘটনাক্রম</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <ul class="bio-list">
+                    <li><i class="fas fa-user"></i> <strong>পরিচয়:</strong> শরিফ ওসমান হাদি ছিলেন 'ইনকিলাব মঞ্চ' এর একজন লড়াকু মুখপাত্র এবং প্রতিশ্রুতিশীল তরুণ ছাত্র নেতা।</li>
+                    <li><i class="fas fa-calendar-alt"></i> <strong>জন্ম:</strong> তিনি ২০০০ সালে ফেনী জেলায় জন্মগ্রহণ করেন (তার পরিবার বর্তমানে ঢাকায় স্থায়ী)।</li>
+                    <li><i class="fas fa-graduation-cap"></i> <strong>শিক্ষা:</strong> তিনি রাজধানীর একটি বেসরকারি বিশ্ববিদ্যালয়ের মেধাবী ছাত্র ছিলেন এবং শুরু থেকেই অধিকার আদায়ের আন্দোলনে সক্রিয় ছিলেন।</li>
+                    <li><i class="fas fa-crosshairs"></i> <strong>হামলার দিন (১২ ডিসেম্বর ২০২৫):</strong> শুক্রবার জুমার নামাজের পর পুরানা পল্টন এলাকায় একদল অজ্ঞাতপরিচয় মোটরসাইকেল আরোহী তার রিকশা থামিয়ে মাথায় অস্ত্র ঠেকিয়ে গুলি করে পালিয়ে যায়।</li>
+                    <li><i class="fas fa-hospital"></i> <strong>লড়াই:</strong> গুরুতর আহত অবস্থায় তাকে ঢাকা মেডিকেল ও পরে এভারকেয়ার হাসপাতালে রাখা হয়। অবস্থার অবনতি হলে সিঙ্গাপুরে স্থানান্তর করা হয়।</li>
+                    <li><i class="fas fa-dove"></i> <strong>মৃত্যু (১৮ ডিসেম্বর ২০২৫):</strong> সিঙ্গাপুর জেনারেল হাসপাতালে চিকিৎসাধীন অবস্থায় বাংলাদেশ সময় রাত ৯:৪৫ মিনিটে তিনি শেষ নিঃশ্বাস ত্যাগ করেন।</li>
+                </ul>
+                <div class="alert alert-warning mt-3 small">
+                    <strong>বিঃদ্রঃ:</strong> এই ফাইলটি তার স্মরণে এবং বিচারের দাবিতে তৈরি করা হয়েছে।
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
         <section id="skills" class="my-5 py-5">
             <h2 class="section-title text-center">My Tech Stack</h2>
@@ -350,11 +497,4 @@
                 <a href="https://github.com/your-github" target="_blank" class="social-icon"><i class="fab fa-github"></i></a>
                 <a href="https://linkedin.com/in/your-linkedin" target="_blank" class="social-icon"><i class="fab fa-linkedin"></i></a>
             </div>
-            <p class="text-secondary small">&copy; 2026 Rashed Khan. All Rights Reserved.</p>
-        </div>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-                        </html>
-                        
+            <p class="text-secondary sma
